@@ -1,7 +1,7 @@
 
 # Controlador de dispositivos DMX
 
-Projeto final para a disciplina de Programação Orientada a Objetos. O [DMX512](https://en.wikipedia.org/wiki/DMX512) é um protocolo de comunicação baseado em RS-485 utilizado atualmente como padrão industrial de controle de dispositivos de iluminação cênica e arquitetônica. A escolha das luzes e efeitos em uma apresentação musical ou teatral tem o poder de mudar a imersão das pessoas no espetáculo. A intenção deste projeto é dispor de um sistema de controle simplificado, permitindo que os dispositivos utilizados sejam facilmente adicionados e removidos da interface, tenham suas cores modificadas individualmente e que seja possível criar cenas e efeitos para serem utilizados posteriormente.
+Projeto final para a disciplina de Programação Orientada a Objetos. O [DMX512](https://en.wikipedia.org/wiki/DMX512) é um protocolo de comunicação baseado em RS-485 utilizado atualmente como padrão industrial de controle de dispositivos de iluminação cênica e arquitetônica. A escolha das luzes e efeitos em uma apresentação musical ou teatral tem o poder de mudar a imersão das pessoas no espetáculo. A intenção deste projeto é criar um sistema de controle simplificado, permitindo que os dispositivos utilizados sejam facilmente adicionados e removidos da interface, tenham suas cores modificadas individualmente e que seja possível criar cenas e efeitos para serem utilizados posteriormente.
 
 Os sinais de controle deverão ser gerados pelo computador e transmitidos aos dispositivos por meio de uma interface USB
 

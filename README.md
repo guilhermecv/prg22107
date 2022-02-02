@@ -17,4 +17,4 @@ Permitir que usuários que não tenham conhecimentos na operação de uma contro
 
 O diagrama de classes abaixo apresenta a idéia de modelagem do sistema
 
-![diagrama_de_classes](/home/guilhermecv/prg22107/img/diagrama_de_classes.png)
+![diagrama_de_classes](/img/diagrama_de_classes.png)

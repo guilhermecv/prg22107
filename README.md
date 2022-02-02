@@ -8,3 +8,13 @@ Os sinais de controle deverão ser gerados pelo computador e transmitidos aos di
 ## Casos de Uso
 
 Permitir que usuários que não tenham conhecimentos na operação de uma controladora DMX consigam criar cenários para apresentações. Adicionando os dispositivos que serão utilizados, informando seu nome (*ID*) e a localização. Criando cenas e efeitos personalizados e aplicando os mesmos por meio de uma interface simples e intuitiva.
+
+
+
+
+
+## Diagrama de Classes
+
+O diagrama de classes abaixo apresenta a idéia de modelagem do sistema
+
+![diagrama_de_classes](/home/guilhermecv/prg22107/img/diagrama_de_classes.png)

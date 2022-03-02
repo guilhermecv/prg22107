@@ -61,6 +61,7 @@
     <property name="title">
      <string>Opções</string>
     </property>
+    <addaction name="actionConfig"/>
    </widget>
    <widget class="QMenu" name="menuAjuda">
     <property name="title">
@@ -87,6 +88,11 @@
   <action name="about">
    <property name="text">
     <string>Sobre</string>
+   </property>
+  </action>
+  <action name="actionConfig">
+   <property name="text">
+    <string>Configurações</string>
    </property>
   </action>
  </widget>

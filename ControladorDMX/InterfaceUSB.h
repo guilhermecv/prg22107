@@ -14,26 +14,22 @@
 #include <QtSerialPort/QSerialPortInfo>
 
 
-class InterfaceUSB
+class InterfaceUSB : public QObject
 {
 public:
   InterfaceUSB();
-  InterfaceUSB(QSerialPort *dev);
-
   ~InterfaceUSB();
 
-  QString getDeviceInfo(void);
+  QString getDeviceInfo(QString portName);
+  QString findPort(uint32_t vid, uint32_t pid);   // Procura por uma porta com o pid/vid especificados
+  bool connect(QString portName);
 
-  bool write(const QByteArray& data);
-  qint64 write(const char *data);
-  
 protected:
-  QSerialPort *device = NULL;
+
 
 private:
-  QString _serialNumber;
-  QString _description;
-  QString _manufacturer;
+  QSerialPort *_device;
+  bool _connected;
 };
 
 #endif // INTERFACEUSB_H

@@ -9,15 +9,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Configuracoes.cpp \
+    ControladorDMX.cpp \
     InterfaceUSB.cpp \
     mainwindow.cpp \
     main.cpp
 
 HEADERS += \
+    Configuracoes.h \
+    ControladorDMX.h \
     InterfaceUSB.h \
     mainwindow.h
 
 FORMS += \
+    configuracoes.ui \
     mainwindow.ui
 
 # Default rules for deployment.

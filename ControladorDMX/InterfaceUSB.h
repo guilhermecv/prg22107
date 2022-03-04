@@ -20,7 +20,7 @@ public:
   InterfaceUSB();
   ~InterfaceUSB();
 
-  QString getDeviceInfo(QString portName);
+  static QString getDeviceInfo(QString portName);
   QString findPort(uint32_t vid, uint32_t pid);   // Procura por uma porta com o pid/vid especificados
   bool connect(QString portName);
 

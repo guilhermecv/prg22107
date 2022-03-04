@@ -24,6 +24,9 @@ public:
   void openWiki(void);      // abre o github do projeto no navegador padrão
   void openConfig(void);    // abre a interface de configurações
 
+private slots:
+  void on_bDMX_clicked();
+
 private:
   Ui::MainWindow *ui;
 

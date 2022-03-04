@@ -14,13 +14,38 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTabWidget" name="tabWidget">
+   <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>60</y>
-      <width>411</width>
-      <height>351</height>
+      <y>40</y>
+      <width>131</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Operação Manual</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Cenas</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Efeitos</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>40</y>
+      <width>581</width>
+      <height>481</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -37,14 +62,17 @@
      </attribute>
     </widget>
    </widget>
-   <widget class="QTextBrowser" name="info">
+   <widget class="QPushButton" name="bDMX">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>80</y>
-      <width>221</width>
-      <height>331</height>
+      <x>660</x>
+      <y>20</y>
+      <width>80</width>
+      <height>24</height>
      </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

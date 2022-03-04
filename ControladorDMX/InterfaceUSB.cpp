@@ -30,7 +30,6 @@ InterfaceUSB::~InterfaceUSB()
 
 /**
  * @brief Retorna as informações do dispositivo
- *
  * @return QString
  */
 QString InterfaceUSB::getDeviceInfo(QString portName)
@@ -78,6 +77,12 @@ QString InterfaceUSB::findPort(uint32_t vid, uint32_t pid)
     return "";
 }
 
+/**
+ * @brief 
+ * @param portName porta serial
+ * @return true sucesso na conexão
+ * @return false falha na conexão
+ */
 bool InterfaceUSB::connect(QString portName)
 {
     _device->setPortName(portName);

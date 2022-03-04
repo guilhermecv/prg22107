@@ -22,8 +22,13 @@ MainWindow::MainWindow(QWidget *parent)
   _interfaceUSB = new InterfaceUSB();
   dmx = new ControladorDMX();
 
+  // Inicia com o controlador desligado
+  dmx->setState(false);
+  ui->bDMX->setText("Ativar DMX");
+
+/*
   QString portName = _interfaceUSB->findPort(FTDI_VID, FTDI_PID);
-  ui->info->append(portName);
+ ui->info->append(portName);
   ui->info->append(_interfaceUSB->getDeviceInfo(portName));
   if(_interfaceUSB->connect(portName))
     {
@@ -32,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
   else
     {
       ui->info->append("Falha na conexao com o dispositivo USB");
-    }
+    }*/
 }
 
 MainWindow::~MainWindow()
@@ -55,8 +60,24 @@ void MainWindow::openWiki(void)
   QDesktopServices::openUrl(QUrl("https://github.com/guilhermecv/prg22107"));
 }
 
+/**
+ * @brief abre as configurações
+ */
 void MainWindow::openConfig()
 {
   Configuracoes config(this, dmx);
   config.exec();
 }
+
+void MainWindow::on_bDMX_clicked()
+{
+  int dmxState;
+    dmxState = dmx->getState();
+
+    if(dmxState == DMX_INTERFACE_NOT_OPEN)
+      {
+        Configuracoes config(this, dmx);
+        config.exec();
+      }
+}
+

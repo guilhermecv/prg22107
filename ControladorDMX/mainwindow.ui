@@ -10,6 +10,12 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -17,59 +23,106 @@
    <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>40</y>
-      <width>131</width>
-      <height>481</height>
+      <x>10</x>
+      <y>30</y>
+      <width>171</width>
+      <height>271</height>
      </rect>
     </property>
-    <item>
-     <property name="text">
-      <string>Operação Manual</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Cenas</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Efeitos</string>
-     </property>
-    </item>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>40</y>
+      <x>190</x>
+      <y>30</y>
       <width>581</width>
       <height>481</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Tab 1</string>
+      <string>Controles</string>
      </attribute>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
-      <string>Tab 2</string>
+      <string>Cenas</string>
      </attribute>
     </widget>
    </widget>
    <widget class="QPushButton" name="bDMX">
     <property name="geometry">
      <rect>
-      <x>660</x>
+      <x>690</x>
       <y>20</y>
       <width>80</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bAdicionar">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>20</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Adicionar</string>
+    </property>
+    <property name="icon">
+     <iconset resource="imagens.qrc">
+      <normaloff>:/img/edit_add.png</normaloff>:/img/edit_add.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bEdit">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>20</y>
+      <width>80</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Excluir</string>
+    </property>
+    <property name="icon">
+     <iconset resource="imagens.qrc">
+      <normaloff>:/img/edit_remove.png</normaloff>:/img/edit_remove.png</iconset>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="Info">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>310</y>
+      <width>171</width>
+      <height>201</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="infoLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>520</y>
+      <width>351</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
     <property name="text">
      <string/>
@@ -90,6 +143,7 @@
      <string>Opções</string>
     </property>
     <addaction name="actionConfig"/>
+    <addaction name="actionFechar"/>
    </widget>
    <widget class="QMenu" name="menuAjuda">
     <property name="title">
@@ -123,7 +177,31 @@
     <string>Configurações</string>
    </property>
   </action>
+  <action name="actionFechar">
+   <property name="text">
+    <string>Fechar</string>
+   </property>
+  </action>
  </widget>
- <resources/>
- <connections/>
+ <resources>
+  <include location="imagens.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionFechar</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

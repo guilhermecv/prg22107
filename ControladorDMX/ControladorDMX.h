@@ -2,44 +2,75 @@
 #define CONTROLADORDMX_H
 
 #include <QObject>
+#include <QTimer>
 #include "InterfaceUSB.h"
 
-#define DMX_MAX_SIZE    20
-#define DMX_OUT_FREQ    30
-#define DMX_MAX_FREQ    60
-#define FTDI_VID        1027
-#define FTDI_PID        24577
-#define FTDI_BAUDRATE   250000
+#define DMX_MAX_SIZE 200
+#define DMX_OUT_FREQ 30
+#define DMX_MAX_FREQ 60
+#define FTDI_VID 1027
+#define FTDI_PID 24577
+#define FTDI_BAUDRATE 250000
 
+#define DMX_START_CODE 0x00
 
-// Definicoes dos erros
-#define TIMER_NAO_CONFIGURADO     10
-#define DMX_INTERFACE_NOT_OPEN    20
-#define DMX_INTERFACE_OPEN        21
-#define FALHA_ENVIO_BUFFER        30
-#define SUCCESS                   0
-
-
-class ControladorDMX
+typedef enum
 {
+    noError,
+    em_espera,
+  executando,
+    Falha_envio_buffer,
+    Erro_de_interface_usb,
+    Timer_nao_configurado
+}error_t;
+
+
+class ControladorDMX : public QObject
+{
+  Q_OBJECT
+
 public:
-  ControladorDMX();
-  ~ControladorDMX();
+    ControladorDMX();
+    ~ControladorDMX();
 
-  int getState(void);
-  void setState(bool state);
+    error_t getState(void);
+    void setState(error_t state);
 
-  void setTimerValue(int value);
-  int getTimerValue(void);
+    void setUpdateFrequency(int value);
+    int getUpdateFrequency(void);
+    int getBufferUsage(void);
+
+    InterfaceUSB *getSerialPort() { return usb; }
+
+    void setChannel(int channel, char value);
+
+    void sendFrame(unsigned char *data);
+
+    QByteArray dmxBuffer;
+
+public Q_SLOTS:
+    void togleState(void);
+    void updateControlState(bool state);
+    void sendFrame() {updateValues();};
+    /***** Exemplo *******/
+Q_SIGNALS:
+    void updateGui(bool state);
+    void stateChanged();
+    /*********************/
 
 private:
-  bool _state;
-  int _timerValue;
+    void updateValues();
 
-  QTimer *timer;
-  InterfaceUSB *usb;
+    error_t _state;
+    bool USBConnected;
+    int _updateFrequency;
 
-  unsigned char dmxBuffer[DMX_MAX_SIZE];
+    static void handleSerialError(QSerialPort::SerialPortError error);
+
+    unsigned char m_dmx[DMX_MAX_SIZE]; // buffer para envio dos frames
+
+    QTimer *timer;
+    InterfaceUSB *usb;
 };
 
 #endif // CONTROLADORDMX_H

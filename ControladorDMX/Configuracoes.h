@@ -24,14 +24,22 @@ public:
   explicit Configuracoes(QWidget *parent = nullptr, ControladorDMX *dmx = nullptr);
   ~Configuracoes();
 
+  void updateDmxState();
+
 private slots:
-  void on_checkBox_stateChanged(int arg1);
   void on_TimerInput_valueChanged(int arg1);
+
+  void on_pushButton_clicked();
+
+public slots:
+  void updateControlState();
+
 
 private:
   Ui::Configuracoes *ui;
 
   ControladorDMX *dmxcontrol;
+  InterfaceUSB *_interfaceUSB;
 };
 
 #endif // CONFIGURACOES_H

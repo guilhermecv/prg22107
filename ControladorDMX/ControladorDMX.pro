@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     Configuracoes.cpp \
     ControladorDMX.cpp \
+    DispositivoDMX.cpp \
     InterfaceUSB.cpp \
     mainwindow.cpp \
     main.cpp
@@ -18,14 +19,19 @@ SOURCES += \
 HEADERS += \
     Configuracoes.h \
     ControladorDMX.h \
+    DispositivoDMX.h \
     InterfaceUSB.h \
     mainwindow.h
 
 FORMS += \
     configuracoes.ui \
+    dispositivodmx.ui \
     mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    imagens.qrc

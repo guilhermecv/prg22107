@@ -14,8 +14,8 @@
  */
 InterfaceUSB::InterfaceUSB()
 {
-    qDebug() << "InterfaceUSB construtor 1";
     _device = new QSerialPort();
+    portInfo = nullptr;
 }
 
 /**
@@ -23,25 +23,8 @@ InterfaceUSB::InterfaceUSB()
  */
 InterfaceUSB::~InterfaceUSB()
 {
-    qDebug() << "InterfaceUSB destrutor";
     _device->close();
     delete _device;
-}
-
-/**
- * @brief Retorna as informações do dispositivo
- * @return QString
- */
-QString InterfaceUSB::getDeviceInfo(QString portName)
-{
-    QString info;
-    QSerialPortInfo portInfo(portName);
-
-    info += portInfo.description() + "\n";
-    info += "Fabricante: " + portInfo.manufacturer() + "\n";
-    info += "S/N: " + portInfo.serialNumber() + "\n";
-
-    return info;
 }
 
 /**
@@ -72,13 +55,15 @@ QString InterfaceUSB::findPort(uint32_t vid, uint32_t pid)
         }
 
         if (found)
+        {
             return serialPortInfo.portName();
+        }
     }
     return "";
 }
 
 /**
- * @brief 
+ * @brief
  * @param portName porta serial
  * @return true sucesso na conexão
  * @return false falha na conexão
@@ -86,17 +71,54 @@ QString InterfaceUSB::findPort(uint32_t vid, uint32_t pid)
 bool InterfaceUSB::connect(QString portName)
 {
     _device->setPortName(portName);
+    _device->setBaudRate(FTDI_BAUDRATE);
+    _device->setFlowControl(QSerialPort::NoFlowControl);
+    _device->setDataBits(QSerialPort::Data8);
+    _device->setParity(QSerialPort::NoParity);
+    _device->setStopBits(QSerialPort::TwoStop);
+
     _connected = _device->open(QIODevice::ReadWrite);
 
     if (_connected)
     {
-        // Configura a porta serial
-        _device->setBaudRate(FTDI_BAUDRATE);
-        _device->setFlowControl(QSerialPort::NoFlowControl);
-        _device->setDataBits(QSerialPort::Data8);
-        _device->setParity(QSerialPort::NoParity);
-        _device->setStopBits(QSerialPort::TwoStop);
+        qDebug() << "Conectado corretamente";
+        portInfo = new QSerialPortInfo(portName);
         return true;
     }
-    return false;
+    else
+    {
+        qDebug() << "Falha na conexao";
+        qDebug() << "Erro: " << _device->error();
+        return false;
+    }
+}
+
+bool InterfaceUSB::connect()
+{
+    QString portName = findPort(FTDI_VID, FTDI_PID);
+    return connect(portName);
+}
+
+/**
+ * @brief
+ *
+ * @param data
+ * @return true dados enviados corretamente
+ * @return false falha no envio dos dados
+ */
+bool InterfaceUSB::write(const QByteArray &data)
+{
+    if (_device == nullptr)
+        return false;
+
+    qDebug() << "Write QByteArray: " << _device->write(data);
+    if (_device->write(data) != 0)
+        return false;
+
+    return true;
+}
+
+void InterfaceUSB::write(const char *data)
+{
+    qDebug() << "write" << _device->write(data, qstrlen(data));
 }

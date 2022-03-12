@@ -13,6 +13,14 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 
+typedef struct
+{
+  QString serial;
+  QString vendor;
+  QString description;
+  QString portName;
+}InterfaceInfo_t;
+
 
 class InterfaceUSB : public QObject
 {
@@ -20,15 +28,23 @@ public:
   InterfaceUSB();
   ~InterfaceUSB();
 
-  static QString getDeviceInfo(QString portName);
-  QString findPort(uint32_t vid, uint32_t pid);   // Procura por uma porta com o pid/vid especificados
+  QSerialPortInfo* getPortInfo() {return portInfo;};
+  QSerialPort* serialPort() {return _device;};          // obtem o ponteiro para a porta serial
+
+  static QString findPort(uint32_t vid, uint32_t pid);   // Procura por uma porta com o pid/vid especificados
   bool connect(QString portName);
+  bool connect();
+
+  bool write(const QByteArray &data);
+  void write(const char *data);
 
 protected:
 
 
 private:
   QSerialPort *_device;
+  QSerialPortInfo *portInfo;
+
   bool _connected;
 };
 

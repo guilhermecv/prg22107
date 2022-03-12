@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "qdebug": "cpp",
+        "qserialport": "cpp",
+        "chrono": "cpp",
+        "condition_variable": "cpp",
+        "ctime": "cpp",
+        "mutex": "cpp"
+    }
+}

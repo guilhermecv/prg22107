@@ -23,9 +23,15 @@ public:
   void aboutQt(void);       // exibe as informações sobre o Qt
   void openWiki(void);      // abre o github do projeto no navegador padrão
   void openConfig(void);    // abre a interface de configurações
+void ReceiveFromControl(){};
 
-private slots:
-  void on_bDMX_clicked();
+public Q_SLOTS:
+  void on_bAdicionar_clicked();
+  void updateState();
+
+signals:
+  void transmit_to_control();
+
 
 private:
   Ui::MainWindow *ui;

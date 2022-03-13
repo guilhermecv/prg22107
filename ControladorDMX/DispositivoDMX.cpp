@@ -5,7 +5,7 @@
 
 
 
-DispositivoDMX::DispositivoDMX(QWidget *parent, QHBoxLayout *layout) : QDialog(parent),
+DispositivoDMX::DispositivoDMX(QWidget *parent, QHBoxLayout *layout, Controlador *control) : QDialog(parent),
     ui(new Ui::DispositivoDMX)
 {
     ui->setupUi(this);
@@ -18,12 +18,7 @@ DispositivoDMX::DispositivoDMX(QWidget *parent, QHBoxLayout *layout) : QDialog(p
     DeviceValid = false;
     deviceLayout = layout;
     deviceWidget = parent;
-
-    if(deviceLayout == nullptr)
-    {
-        qDebug() << "Ponteiro nulo para layout";
-        return;
-    }
+    dmxControl = control;
 
     signalMapper = new QSignalMapper(this);
 }
@@ -64,7 +59,7 @@ void DispositivoDMX::addDevice()
         qDebug() << "Slider created " << deviceLayout->count();
         slider[i]->setRange(0, 255);
         slider[i]->setOrientation(Qt::Vertical);
-        slider[i]->setTickInterval(50);
+        slider[i]->setTickInterval(30);
         slider[i]->setTickPosition(QSlider::TicksBothSides);
         qDebug() << "Slider configured";
         groupBoxLayout->addWidget(slider[i]);
@@ -105,13 +100,16 @@ void DispositivoDMX::on_comboBoxMode_highlighted(int index)
     {
     case 0:
         ui->deviceInfo->clear();
+        ui->channels->setValue(0);
         break;
     case 1:
         channels = 1;
+        ui->channels->setValue(channels);
         ui->deviceInfo->append("Canal 1: Intensidade");
         break;
     case 2:
         channels = 3;
+        ui->channels->setValue(channels);
         ui->deviceInfo->append("Canal 1: Vermelho");
         ui->deviceInfo->append("Canal 2: Verde");
         ui->deviceInfo->append("Canal 3: Azul");
@@ -119,6 +117,7 @@ void DispositivoDMX::on_comboBoxMode_highlighted(int index)
 
     case 3:
         channels = 4;
+        ui->channels->setValue(channels);
         ui->deviceInfo->append("Canal 1: Vermelho");
         ui->deviceInfo->append("Canal 2: Verde");
         ui->deviceInfo->append("Canal 3: Azul");
@@ -127,6 +126,7 @@ void DispositivoDMX::on_comboBoxMode_highlighted(int index)
 
     case 4:
         channels = 8;
+        ui->channels->setValue(channels);
         ui->deviceInfo->append("Canal 1: Vermelho");
         ui->deviceInfo->append("Canal 2: Verde");
         ui->deviceInfo->append("Canal 3: Azul");
@@ -140,11 +140,6 @@ void DispositivoDMX::on_comboBoxMode_highlighted(int index)
     }
 }
 
-void DispositivoDMX::on_addressInput_valueChanged(int arg1)
-{
-    address = arg1;
-}
-
 void DispositivoDMX::on_buttonBox_accepted()
 {
     checkConfig();
@@ -156,14 +151,15 @@ void DispositivoDMX::on_buttonBox_accepted()
     }
     else
     {
-        QString message = "As informações abaixo não são válidas\n\n";
+        QString message = "Verifique as informações abaixo\n\n";
         QMessageBox msgBox;
 
-        if(DeviceName == "") message += "Nome do dispositivo\n";
-        if(address == 0)    message += "Endereço\n";
-        if(mode == 0)   message += "Modo de operação \n";
+        if(DeviceName == "")        message += "Nome do dispositivo\n";
+        if(address == 0)            message += "Endereço do dispositivo\n";
+        if(mode == 0)               message += "Modo de operação \n";
         if(deviceLayout == nullptr) message += "Ponteiro nulo para layout";
-        msgBox.warning(this, "Erro ao incluir novo dispositivo", message);
+
+        msgBox.warning(this, "Atenção", message);
     }
 }
 
@@ -172,13 +168,13 @@ void DispositivoDMX::sliderValueChanged()
     QSlider *m_slider = (QSlider*)sender();
     int value = m_slider->value();
 
-    qDebug() << "Buffer [ " << selectedChannel << "] = [ " << value << "]";
+    //qDebug() << "Buffer [" << selectedChannel << "] = [" << value << "]";
+
+    dmxControl->setChannel(selectedChannel, value);
 }
 
 void DispositivoDMX::channelUpdate(int ch)
 {
-    qDebug() << "Chanel " << ch;
-
     selectedChannel = address + ch;
 }
 

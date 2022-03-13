@@ -6,6 +6,7 @@
 #include <QBoxLayout>
 #include <QSlider>
 #include <QSignalMapper>
+#include <controlador.h>
 
 namespace Ui
 {
@@ -17,7 +18,7 @@ class DispositivoDMX : public QDialog
     Q_OBJECT
 
 public:
-    explicit DispositivoDMX(QWidget *parent = nullptr, QHBoxLayout *layout = nullptr);
+    explicit DispositivoDMX(QWidget *parent = nullptr, QHBoxLayout *layout = nullptr, Controlador *control = nullptr);
     ~DispositivoDMX();
 
     bool DeviceValid;
@@ -27,7 +28,7 @@ public:
 private slots:
     void on_nameInput_textChanged(const QString &arg1);
     void on_comboBoxMode_highlighted(int index);
-    void on_addressInput_valueChanged(int arg1);
+    //void on_addressInput_valueChanged(int arg1);
 
     void on_buttonBox_accepted();
 
@@ -42,6 +43,7 @@ private:
     QString DeviceName;
     QSlider *slider[8];
     QSignalMapper *signalMapper;
+    Controlador *dmxControl;
 
     int channels;
     int address;

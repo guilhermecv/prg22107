@@ -6,8 +6,13 @@
 #include <QLabel>
 #include <QListWidgetItem>
 
-#include "dispositivoDMX.h"
+#include <QDebug>
+#include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
 
+#include "dispositivoDMX.h"
+#include "configuracoes.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,7 +21,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->statusbar->showMessage("Iniciando...", 2000);
 
-    dmxControl = new Controlador;
+    dmxControl = new Controlador();
+
+    updateControlState(dmxControl->getState());
+
+    connect(ui->actionConfig, &QAction::triggered, this, &MainWindow::openConfig);
+    connect(ui->actionAboutQt, &QAction::triggered, this, &MainWindow::aboutQt);
+    connect(ui->actionDoc, &QAction::triggered, this, &MainWindow::openWiki);
+    connect(dmxControl, SIGNAL(stateChanged(bool)), this, SLOT(updateControlState(bool)));
+    connect(ui->bControle, SIGNAL(clicked()), dmxControl, SLOT(toggleRunningState()));
 }
 
 MainWindow::~MainWindow()
@@ -25,11 +38,28 @@ MainWindow::~MainWindow()
     delete dmxControl;
 }
 
+void MainWindow::openConfig()
+{
+    Configuracoes *config = new Configuracoes(this, dmxControl);
+    config->show();
+}
+
+void MainWindow::openWiki()
+{
+    QDesktopServices::openUrl(QUrl("https://github.com/guilhermecv/prg22107"));
+}
+
+void MainWindow::aboutQt()
+{
+    QMessageBox::aboutQt(this, tr("Sobre o Qt"));
+}
+
+
 void MainWindow::on_bAdicionar_clicked()
 {
     auto layout = qobject_cast<QHBoxLayout*>(ui->tabControl->layout());
-    DispositivoDMX *_dispositivoDMX = new DispositivoDMX(ui->tabControl, layout);
-    _dispositivoDMX->exec();
+    DispositivoDMX *_dispositivoDMX = new DispositivoDMX(ui->tabControl, layout, dmxControl);
+    _dispositivoDMX->show();
 }
 
 
@@ -41,3 +71,16 @@ void MainWindow::on_bRemover_clicked()
     // delete slider;
 }
 
+void MainWindow::updateControlState(bool state)
+{
+    if(state == true)
+    {
+        ui->statusbar->showMessage("Executando", 0);
+        ui->bControle->setText("Parar");
+    }
+    else
+    {
+        ui->statusbar->showMessage("Em espera", 0);
+        ui->bControle->setText("Iniciar");
+    }
+}

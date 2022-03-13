@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Dispositivo DMX</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="img/img.qrc">
+    <normaloff>:/spotlight2.png</normaloff>:/spotlight2.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -54,6 +58,11 @@
           <item>
            <property name="text">
             <string/>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dimmer</string>
            </property>
           </item>
           <item>
@@ -137,29 +146,15 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="img/img.qrc"/>
+ </resources>
  <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>DispositivoDMX</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
    <receiver>DispositivoDMX</receiver>
-   <slot>reject()</slot>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>316</x>

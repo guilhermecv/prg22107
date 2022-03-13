@@ -1,8 +1,17 @@
 <RCC>
     <qresource prefix="/">
-        <file>edit_add.png</file>
-        <file>edit_remove.png</file>
+        <file>Qt.png</file>
         <file>rgbmatrix.png</file>
         <file>spotlight.png</file>
+        <file>spotlight2.png</file>
+        <file>lightdevice.png</file>
+        <file>lightdevice2.png</file>
+        <file>setting.png</file>
+        <file>help.png</file>
+        <file>settings.png</file>
+        <file>setttings2.png</file>
+        <file>about.png</file>
+        <file>edit_add.png</file>
+        <file>edit_remove.png</file>
     </qresource>
 </RCC>

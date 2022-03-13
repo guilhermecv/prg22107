@@ -2,10 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <controlador.h>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
 
 class MainWindow : public QMainWindow
 {
@@ -22,5 +25,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    Controlador *dmxControl;
 };
 #endif // MAINWINDOW_H

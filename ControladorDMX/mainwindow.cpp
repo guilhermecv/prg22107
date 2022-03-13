@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QSlider>
 #include <QLabel>
+#include <QListWidgetItem>
+
 #include "dispositivoDMX.h"
 
 
@@ -12,41 +14,22 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->statusbar->showMessage("Iniciando...", 2000);
+
+    dmxControl = new Controlador;
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete dmxControl;
 }
-
 
 void MainWindow::on_bAdicionar_clicked()
 {
-    DispositivoDMX *_dispositivoDMX = new DispositivoDMX;
-
+    auto layout = qobject_cast<QHBoxLayout*>(ui->tabControl->layout());
+    DispositivoDMX *_dispositivoDMX = new DispositivoDMX(ui->tabControl, layout);
     _dispositivoDMX->exec();
-    /*
-    if(ui->tabControl->layout() == nullptr)
-    {
-        qDebug() << "nullptr";
-    }
-    QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(ui->tabControl->layout());
-
-    qDebug() << "object cast";
-
-    QSlider* slider = new QSlider(ui->tabControl);
-    qDebug() << "Slider created " << layout->count();
-
-    slider->setRange(0, 255);
-    slider->setOrientation(Qt::Vertical);
-    slider->setTickInterval(50);
-    slider->setTickPosition(QSlider::TicksBothSides);
-    qDebug() << "Slider configured";
-
-    layout->insertWidget(0, slider);
-
-    qDebug() << "Widget inserted";
-    */
 }
 
 

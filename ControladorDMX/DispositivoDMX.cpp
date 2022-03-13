@@ -1,48 +1,77 @@
-#include "DispositivoDMX.h"
+#include "dispositivoDMX.h"
 #include "ui_dispositivodmx.h"
-#include <QDebug>
 
-DispositivoDMX::DispositivoDMX(QWidget *parent, ControladorDMX *dmxControl) : QDialog(parent),
-                                                                              ui(new Ui::DispositivoDMX)
+DispositivoDMX::DispositivoDMX(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::DispositivoDMX)
 {
-  ui->setupUi(this);
+    ui->setupUi(this);
 
-  ui->channels_edit->setEnabled(false);
-  ui->address_edit->setEnabled(false);
-
-  DeviceAddress = 0;
+    channels = 0;
+    address = 0;
 }
 
 DispositivoDMX::~DispositivoDMX()
 {
-  delete ui;
+    delete ui;
 }
 
-void DispositivoDMX::editDevice()
+void DispositivoDMX::on_nameInput_textChanged(const QString &arg1)
 {
-  qDebug() << "Editando dispositivo";
+    if(arg1 != "")
+    {
+        ui->addressInput->setEnabled(true);
+    }
+    else
+    {
+        ui->addressInput->setEnabled(false);
+    }
 }
 
-void DispositivoDMX::on_name_edit_editingFinished()
+
+void DispositivoDMX::on_comboBoxMode_highlighted(int index)
 {
+    ui->deviceInfo->clear();
 
-  if (ui->name_edit->text() != "")
-  {
-    DeviceName = ui->name_edit->text();
-    ui->channels_edit->setEnabled(true);
-    ui->address_edit->setEnabled(true);
-  }
-  else
-  {
-    ui->channels_edit->setEnabled(false);
-    ui->address_edit->setEnabled(false);
-  }
+    switch(index)
+    {
+    case 0:
+        ui->deviceInfo->clear();
+        break;
+
+    case 1:
+        channels = 3;
+        ui->deviceInfo->append("Canal 1: Vermelho");
+        ui->deviceInfo->append("Canal 2: Verde");
+        ui->deviceInfo->append("Canal 3: Azul");
+        break;
+
+    case 2:
+        channels = 4;
+        ui->deviceInfo->append("Canal 1: Vermelho");
+        ui->deviceInfo->append("Canal 2: Verde");
+        ui->deviceInfo->append("Canal 3: Azul");
+        ui->deviceInfo->append("Canal 4: Branco");
+        break;
+
+    case 3:
+        channels = 8;
+        ui->deviceInfo->append("Canal 1: Vermelho");
+        ui->deviceInfo->append("Canal 2: Verde");
+        ui->deviceInfo->append("Canal 3: Azul");
+        ui->deviceInfo->append("Canal 4: Branco");
+        ui->deviceInfo->append("Canal 7: Efeito");
+        ui->deviceInfo->append("Canal 8: Velocidade");
+        break;
+
+    default:
+        break;
+    }
 }
 
-bool DispositivoDMX::isDeviceValid(void)
+
+void DispositivoDMX::on_addressInput_valueChanged(int arg1)
 {
-  if (DeviceName != "")
-    return true;
-  else
-    return false;
+    address = arg1;
 }
+

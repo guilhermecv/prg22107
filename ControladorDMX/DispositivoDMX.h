@@ -2,7 +2,6 @@
 #define DISPOSITIVODMX_H
 
 #include <QDialog>
-#include "ControladorDMX.h"
 
 namespace Ui {
 class DispositivoDMX;
@@ -13,23 +12,24 @@ class DispositivoDMX : public QDialog
     Q_OBJECT
 
 public:
-    explicit DispositivoDMX(QWidget *parent = nullptr, ControladorDMX *dmxControl = nullptr);
+    explicit DispositivoDMX(QWidget *parent = nullptr);
     ~DispositivoDMX();
+
+    bool DeviceValid;
 
     QString getDeviceName() {return DeviceName;};
 
-    void editDevice();
-    bool isDeviceValid();
-    
 private slots:
-    void on_name_edit_editingFinished();
+    void on_nameInput_textChanged(const QString &arg1);
+    void on_comboBoxMode_highlighted(int index);
+    void on_addressInput_valueChanged(int arg1);
 
 private:
     Ui::DispositivoDMX *ui;
 
-    QString DeviceName;         // nome do dispositivo
-    quint32 DeviceAddress;      // endereço do dispositivo no barramento
-
+    QString DeviceName;
+    int channels;
+    int address;
 };
 
 #endif // DISPOSITIVODMX_H

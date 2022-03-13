@@ -6,202 +6,138 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>885</width>
+    <height>424</height>
    </rect>
   </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Controlador DMX</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListWidget" name="listWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>171</width>
-      <height>271</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>30</y>
-      <width>581</width>
-      <height>481</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>1</number>
-    </property>
-    <widget class="QWidget" name="tab">
-     <attribute name="title">
-      <string>Controles</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_2">
-     <attribute name="title">
-      <string>Cenas</string>
-     </attribute>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="bDMX">
-    <property name="geometry">
-     <rect>
-      <x>690</x>
-      <y>20</y>
-      <width>80</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="bAdicionar">
-    <property name="geometry">
-     <rect>
-      <x>590</x>
-      <y>20</y>
-      <width>80</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Adicionar</string>
-    </property>
-    <property name="icon">
-     <iconset resource="imagens.qrc">
-      <normaloff>:/img/edit_add.png</normaloff>:/img/edit_add.png</iconset>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="bEdit">
-    <property name="geometry">
-     <rect>
-      <x>490</x>
-      <y>20</y>
-      <width>80</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Excluir</string>
-    </property>
-    <property name="icon">
-     <iconset resource="imagens.qrc">
-      <normaloff>:/img/edit_remove.png</normaloff>:/img/edit_remove.png</iconset>
-    </property>
-   </widget>
-   <widget class="QTextEdit" name="Info">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>310</y>
-      <width>171</width>
-      <height>201</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="infoLabel">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>520</y>
-      <width>351</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QListView" name="listView">
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aqui você encontra a relação de dispositivos DMX adicionados ao controlador.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tabControl">
+       <attribute name="title">
+        <string>Controles</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout"/>
+      </widget>
+      <widget class="QWidget" name="tabScene">
+       <attribute name="title">
+        <string>Cenas</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="2">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Ações</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="bAdicionar">
+         <property name="text">
+          <string>Adicionar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QPushButton" name="bRemover">
+           <property name="text">
+            <string>Remover</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="bControle">
+         <property name="text">
+          <string>Controle</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>885</width>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuOp_es">
+   <widget class="QMenu" name="menuOpcoes">
     <property name="title">
      <string>Opções</string>
     </property>
     <addaction name="actionConfig"/>
-    <addaction name="actionFechar"/>
    </widget>
    <widget class="QMenu" name="menuAjuda">
     <property name="title">
      <string>Ajuda</string>
     </property>
-    <addaction name="about"/>
-    <addaction name="aboutQt"/>
-    <addaction name="help"/>
+    <addaction name="actionAboutQt"/>
+    <addaction name="actionAbout"/>
+    <addaction name="separator"/>
+    <addaction name="actionDoc"/>
    </widget>
-   <addaction name="menuOp_es"/>
+   <addaction name="menuOpcoes"/>
    <addaction name="menuAjuda"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="aboutQt">
-   <property name="text">
-    <string>Sobre o Qt</string>
-   </property>
-  </action>
-  <action name="help">
-   <property name="text">
-    <string>Documentação</string>
-   </property>
-  </action>
-  <action name="about">
-   <property name="text">
-    <string>Sobre</string>
-   </property>
-  </action>
   <action name="actionConfig">
    <property name="text">
     <string>Configurações</string>
    </property>
   </action>
-  <action name="actionFechar">
+  <action name="actionAbout">
    <property name="text">
-    <string>Fechar</string>
+    <string>Sobre</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>Sobre o Qt</string>
+   </property>
+  </action>
+  <action name="actionDoc">
+   <property name="text">
+    <string>Documentação</string>
    </property>
   </action>
  </widget>
- <resources>
-  <include location="imagens.qrc"/>
- </resources>
- <connections>
-  <connection>
-   <sender>actionFechar</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>399</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <resources/>
+ <connections/>
 </ui>

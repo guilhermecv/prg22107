@@ -11,6 +11,8 @@
 #include <QDesktopServices>
 #include <QUrl>
 
+#include <QPixmap>
+
 #include "dispositivoDMX.h"
 #include "configuracoes.h"
 
@@ -28,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionConfig, &QAction::triggered, this, &MainWindow::openConfig);
     connect(ui->actionAboutQt, &QAction::triggered, this, &MainWindow::aboutQt);
     connect(ui->actionDoc, &QAction::triggered, this, &MainWindow::openWiki);
+    connect(ui->actionAddDevice, &QAction::triggered, this, &MainWindow::addDevice);
+    connect(ui->bAdd, &QPushButton::clicked, this, &MainWindow::addDevice);
     connect(dmxControl, SIGNAL(stateChanged(bool)), this, SLOT(updateControlState(bool)));
     connect(ui->bControle, SIGNAL(clicked()), dmxControl, SLOT(toggleRunningState()));
 }
@@ -54,14 +58,12 @@ void MainWindow::aboutQt()
     QMessageBox::aboutQt(this, tr("Sobre o Qt"));
 }
 
-
-void MainWindow::on_bAdicionar_clicked()
+void MainWindow::addDevice()
 {
     auto layout = qobject_cast<QHBoxLayout*>(ui->tabControl->layout());
     DispositivoDMX *_dispositivoDMX = new DispositivoDMX(ui->tabControl, layout, dmxControl);
     _dispositivoDMX->show();
 }
-
 
 void MainWindow::on_bRemover_clicked()
 {
@@ -77,10 +79,12 @@ void MainWindow::updateControlState(bool state)
     {
         ui->statusbar->showMessage("Executando", 0);
         ui->bControle->setText("Parar");
+        ui->bControle->setIcon(QIcon(":/pause.png"));
     }
     else
     {
         ui->statusbar->showMessage("Em espera", 0);
         ui->bControle->setText("Iniciar");
+        ui->bControle->setIcon(QIcon(":/play.png"));
     }
 }

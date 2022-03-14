@@ -17,6 +17,7 @@ Configuracoes::Configuracoes(QWidget *parent, Controlador *control) :
     connect(ui->TimerInput, SIGNAL(valueChanged(int)), dmxControl, SLOT(setUpdateFrequency(int)));
     connect(dmxControl, SIGNAL(stateChanged(bool)), this, SLOT(updateControlState(bool)));
     connect(ui->bControl, SIGNAL(clicked()), dmxControl, SLOT(toggleRunningState()));
+    connect(ui->sendFrame, SIGNAL(clicked()), dmxControl, SLOT(writeFrame()));
 
     if (_interfaceUSB->getPortInfo() != nullptr)
     {
@@ -28,6 +29,11 @@ Configuracoes::Configuracoes(QWidget *parent, Controlador *control) :
         ui->Descricao->setText(serialInfo->description());
         ui->Localizacao->setText(serialInfo->portName());
     }
+
+    ui->TimerInput->setValue(dmxControl->getUpdateFrequency());
+    QString s = QString::number(dmxControl->getBufferSize());
+    ui->BufferSize->setText(s);
+    ui->progressBar->setValue(dmxControl->getBufferSize());
 
 }
 

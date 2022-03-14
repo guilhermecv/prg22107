@@ -13,5 +13,7 @@
         <file>about.png</file>
         <file>edit_add.png</file>
         <file>edit_remove.png</file>
+        <file>pause.png</file>
+        <file>play.png</file>
     </qresource>
 </RCC>

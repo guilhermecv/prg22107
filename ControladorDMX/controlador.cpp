@@ -19,6 +19,8 @@ Controlador::Controlador(QObject *parent)
     timer->setInterval(1000 / updateFrequency);
     timer->setTimerType(Qt::PreciseTimer);
 
+    connect(timer, &QTimer::timeout, this, &Controlador::timerAction);
+
     clearBuffer();
 }
 
@@ -30,7 +32,18 @@ bool Controlador::getState()
 void Controlador::setState(bool state)
 {
     controlState = state;
+
+    if(controlState == true)
+        timer->start();
+    else
+        timer->stop();
+
     emit stateChanged(controlState);
+}
+
+int Controlador::getBufferSize()
+{
+    return m_dmxBuffer.size();
 }
 
 void Controlador::setUpdateFrequency(int freq)
@@ -43,7 +56,40 @@ void Controlador::setUpdateFrequency(int freq)
 void Controlador::toggleRunningState()
 {
     controlState = !controlState;
+    setState(controlState);
     emit stateChanged(controlState);
+}
+
+void Controlador::timerAction()
+{
+    if(usbConnected == false)
+    {
+        setState(false);
+        QMessageBox msgBox;
+        msgBox.warning(nullptr, "Controlador DMX", "Nenhuma interface USB detectada!");
+    }
+    else
+    {
+        writeFrame();
+    }
+}
+
+void Controlador::writeFrame()
+{
+    if(!usb->serialPort()->setBreakEnabled(false))   setState(false);
+
+    QThread::usleep(88);
+    if(!usb->serialPort()->setBreakEnabled(true))   setState(false);
+    QThread::usleep(8);
+    if(!usb->serialPort()->setBreakEnabled(false))   setState(false);
+
+    usb->serialPort()->setRequestToSend(true);
+    unsigned char startCode[] = {DMX_START_CODE};
+    usb->write((const char *)startCode);
+    usb->serialPort()->write(m_dmxBuffer);
+
+    usb->serialPort()->setRequestToSend(false);
+    usb->serialPort()->setBreakEnabled(false);
 }
 
 void Controlador::clearBuffer()

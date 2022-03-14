@@ -20,9 +20,9 @@ public:
     void openConfig();
     void openWiki();
     void aboutQt();
+    void addDevice();
 
 private slots:
-    void on_bAdicionar_clicked();
     void on_bRemover_clicked();
     void updateControlState(bool state);
 

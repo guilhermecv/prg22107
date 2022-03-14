@@ -23,7 +23,7 @@ public:
     void setState(bool state);
 
     int getUpdateFrequency(void) {return updateFrequency;};
-    int getBufferUsage(void);
+    int getBufferSize(void);
 
     void setChannel(int channel, int value);
     InterfaceUSB *getSerialPort() { return usb; }
@@ -36,6 +36,7 @@ public slots:
     void printBuffer(void);
     void setUpdateFrequency(int freq);
     void toggleRunningState();
+    void writeFrame();
 
 private:
     InterfaceUSB *usb;
@@ -45,6 +46,9 @@ private:
     bool usbConnected;
 
     bool controlState;
+
+    void timerAction();
+
 
     int dmxBuffer[DMX_MAX_SIZE];    // buffer para os frames DMX
     QByteArray m_dmxBuffer;         // buffer para os frames DMX utilizando QByteArray

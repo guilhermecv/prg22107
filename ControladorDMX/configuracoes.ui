@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Configurações</string>
   </property>
   <property name="windowIcon">
    <iconset resource="img/img.qrc">
@@ -109,7 +109,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Tamanho do Buffer</string>
+        <string>Tamanho máximo do buffer</string>
        </property>
       </widget>
      </item>
@@ -196,7 +196,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Utilização do buffer</string>
+     <string>Utilização do universo</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

@@ -44,7 +44,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="bAdicionar">
+        <widget class="QPushButton" name="bAdd">
          <property name="focusPolicy">
           <enum>Qt::ClickFocus</enum>
          </property>
@@ -92,7 +92,7 @@
          </property>
          <property name="icon">
           <iconset resource="img/img.qrc">
-           <normaloff>:/lightdevice.png</normaloff>:/lightdevice.png</iconset>
+           <normaloff>:/lightdevice2.png</normaloff>:/lightdevice2.png</iconset>
          </property>
         </widget>
        </item>
@@ -118,6 +118,7 @@
      <string>Opções</string>
     </property>
     <addaction name="actionConfig"/>
+    <addaction name="actionAddDevice"/>
    </widget>
    <widget class="QMenu" name="menuAjuda">
     <property name="title">
@@ -166,6 +167,15 @@
    </property>
    <property name="text">
     <string>Documentação</string>
+   </property>
+  </action>
+  <action name="actionAddDevice">
+   <property name="icon">
+    <iconset resource="img/img.qrc">
+     <normaloff>:/spotlight2.png</normaloff>:/spotlight2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Adicionar Dispositivo</string>
    </property>
   </action>
  </widget>

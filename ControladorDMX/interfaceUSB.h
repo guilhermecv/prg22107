@@ -37,9 +37,7 @@ public:
 
   bool write(const QByteArray &data);
   void write(const char *data);
-
-protected:
-
+  void write(const char *data, int length);
 
 private:
   QSerialPort *_device;

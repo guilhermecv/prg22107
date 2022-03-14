@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <controlador.h>
+#include <dispositivoDMX.h>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,6 +24,10 @@ public:
     void aboutQt();
     void addDevice();
 
+    DispositivoDMX* deviceAtIndex(int index);
+    void deleteDevice(int index);
+
+
 private slots:
     void on_bRemover_clicked();
     void updateControlState(bool state);
@@ -31,5 +37,7 @@ signals:
 private:
     Ui::MainWindow *ui;
     Controlador *dmxControl;
+
+    QList<DispositivoDMX*> dispositivos;
 };
 #endif // MAINWINDOW_H

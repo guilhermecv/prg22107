@@ -120,5 +120,10 @@ bool InterfaceUSB::write(const QByteArray &data)
 
 void InterfaceUSB::write(const char *data)
 {
-    qDebug() << "write" << _device->write(data, qstrlen(data));
+   _device->write(data, sizeof(data));
+}
+
+void InterfaceUSB::write(const char *data, int length)
+{
+    _device->write(data, length);
 }

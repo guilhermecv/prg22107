@@ -5,8 +5,8 @@
 #include <QTimer>
 #include "interfaceUSB.h"
 
-#define DMX_MAX_SIZE                15
-#define DMX_MAX_OUTPUT_FREQUENCY    30
+#define DMX_MAX_SIZE                512
+#define DMX_MAX_OUTPUT_FREQUENCY    50
 #define DMX_START_CODE              0x00
 
 #define FTDI_VID                    1027
@@ -49,9 +49,9 @@ private:
 
     void timerAction();
 
+    unsigned char dmxBuffer[DMX_MAX_SIZE];
 
-    int dmxBuffer[DMX_MAX_SIZE];    // buffer para os frames DMX
-    QByteArray m_dmxBuffer;         // buffer para os frames DMX utilizando QByteArray
+//    QByteArray m_dmxBuffer;         // buffer para os frames DMX utilizando QByteArray
 };
 
 #endif // CONTROLADOR_H

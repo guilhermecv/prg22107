@@ -8,6 +8,9 @@
 #include <QSignalMapper>
 #include <controlador.h>
 
+#include <QGroupBox>
+
+
 namespace Ui
 {
     class DispositivoDMX;
@@ -25,6 +28,8 @@ public:
 
     QString getDeviceName() { return DeviceName; };
 
+    void deleteDevices();
+
 private slots:
     void on_nameInput_textChanged(const QString &arg1);
     void on_comboBoxMode_highlighted(int index);
@@ -39,6 +44,7 @@ private:
     Ui::DispositivoDMX *ui;
     QWidget *deviceWidget;
     QHBoxLayout *deviceLayout;
+    QGroupBox *groupBox;
 
     QString DeviceName;
     QSlider *slider[8];

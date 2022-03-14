@@ -28,6 +28,11 @@ DispositivoDMX::~DispositivoDMX()
     delete ui;
 }
 
+void DispositivoDMX::deleteDevices()
+{
+    delete groupBox;
+}
+
 void DispositivoDMX::checkConfig()
 {
     address = ui->addressInput->value();
@@ -46,7 +51,7 @@ void DispositivoDMX::checkConfig()
 
 void DispositivoDMX::addDevice()
 {
-    QGroupBox *groupBox = new QGroupBox(deviceWidget);
+    groupBox = new QGroupBox(deviceWidget);
     groupBox->setTitle(DeviceName);
 
     qDebug() << "GroupBox created ";
@@ -70,7 +75,6 @@ void DispositivoDMX::addDevice()
         signalMapper->setMapping(slider[i], i);     // Alterando o valor, enviamos o ID do slider
         connect(signalMapper, SIGNAL(mappedInt(int)), this, SLOT(channelUpdate(int)));
     }
-    dumpObjectInfo();
 
     groupBox->setLayout(groupBoxLayout);
     deviceLayout->addWidget(groupBox);

@@ -62,7 +62,15 @@ void MainWindow::addDevice()
 {
     auto layout = qobject_cast<QHBoxLayout*>(ui->tabControl->layout());
     DispositivoDMX *_dispositivoDMX = new DispositivoDMX(ui->tabControl, layout, dmxControl);
-    _dispositivoDMX->show();
+    _dispositivoDMX->exec();
+    if(_dispositivoDMX->DeviceValid == true)
+    {
+        qDebug() << "append device";
+        dispositivos.append(_dispositivoDMX);
+        ui->listWidget->addItem(_dispositivoDMX->getDeviceName());
+    }
+
+    qDebug() << "device count " << dispositivos.length();
 }
 
 void MainWindow::on_bRemover_clicked()
@@ -71,6 +79,10 @@ void MainWindow::on_bRemover_clicked()
 
     // QSlider* slider = qobject_cast<QSlider*>(sender());
     // delete slider;
+
+    ui->listWidget->selectedItems();
+
+    deleteDevice(0);
 }
 
 void MainWindow::updateControlState(bool state)
@@ -88,3 +100,21 @@ void MainWindow::updateControlState(bool state)
         ui->bControle->setIcon(QIcon(":/play.png"));
     }
 }
+
+
+DispositivoDMX *MainWindow::deviceAtIndex(int index)
+{
+    return dispositivos[index];
+}
+
+void MainWindow::deleteDevice(int index)
+{
+    if(index > dispositivos.length() || index == 0)
+        return;
+
+    qDebug() << "delete device";
+    DispositivoDMX *device = dispositivos[index];
+    device->deleteDevices();
+    delete device;
+}
+

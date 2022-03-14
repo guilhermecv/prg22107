@@ -76,17 +76,15 @@ void Controlador::timerAction()
 
 void Controlador::writeFrame()
 {
-    if(!usb->serialPort()->setBreakEnabled(false))   setState(false);
+    if(!usb->serialPort()->setBreakEnabled(false))  setState(false);
 
     QThread::usleep(88);
     if(!usb->serialPort()->setBreakEnabled(true))   setState(false);
     QThread::usleep(8);
-    if(!usb->serialPort()->setBreakEnabled(false))   setState(false);
+    if(!usb->serialPort()->setBreakEnabled(false))  setState(false);
 
-    usb->serialPort()->setRequestToSend(true);
-    //unsigned char startCode[] = {DMX_START_CODE};
+    if(!usb->serialPort()->setRequestToSend(true))  setState(false);
 
-   // usb->write((const char*)startCode, sizeof(startCode));
     dmxBuffer[0] = DMX_START_CODE;
     usb->write((const char*)dmxBuffer, sizeof(dmxBuffer));
 
@@ -98,8 +96,6 @@ void Controlador::writeFrame()
 
 void Controlador::clearBuffer()
 {
-    qDebug() << "Limpando buffer";
-
     for(int i = 0; i < DMX_MAX_SIZE; i++)
         dmxBuffer[i] = 0;
 }
@@ -107,8 +103,6 @@ void Controlador::clearBuffer()
 void Controlador::setChannel(int channel, int value)
 {
     qDebug() << "Channel " << channel << " changed to " << value;
-
-    //m_dmxBuffer[channel] = static_cast<int>(value);
     dmxBuffer[channel] = static_cast<unsigned char>(value);
 }
 

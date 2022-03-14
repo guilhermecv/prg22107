@@ -50,8 +50,6 @@ private:
     void timerAction();
 
     unsigned char dmxBuffer[DMX_MAX_SIZE];
-
-//    QByteArray m_dmxBuffer;         // buffer para os frames DMX utilizando QByteArray
 };
 
 #endif // CONTROLADOR_H

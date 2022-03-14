@@ -58,19 +58,15 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QPushButton" name="bRemover">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="img/img.qrc">
-             <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QPushButton" name="bRemover">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="img/img.qrc">
+           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="horizontalSpacer">

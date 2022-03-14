@@ -38,15 +38,9 @@ void DispositivoDMX::checkConfig()
     address = ui->addressInput->value();
 
     if (DeviceName != "" && channels != 0 && address != 0 && mode != 0)
-    {
-        qDebug() << "Configuração válida";
         DeviceValid = true;
-    }
     else
-    {
-        qDebug() << "Configuração Inválida";
         DeviceValid = false;
-    }
 }
 
 void DispositivoDMX::addDevice()
@@ -54,19 +48,15 @@ void DispositivoDMX::addDevice()
     groupBox = new QGroupBox(deviceWidget);
     groupBox->setTitle(DeviceName);
 
-    qDebug() << "GroupBox created ";
-
     auto *groupBoxLayout = new QHBoxLayout(groupBox);
 
     for(int i = 0; i < channels; i++)
     {
         slider[i] = new QSlider(deviceWidget);
-        qDebug() << "Slider created " << deviceLayout->count();
         slider[i]->setRange(0, 255);
         slider[i]->setOrientation(Qt::Vertical);
         slider[i]->setTickInterval(30);
         slider[i]->setTickPosition(QSlider::TicksBothSides);
-        qDebug() << "Slider configured";
         groupBoxLayout->addWidget(slider[i]);
 
         connect(slider[i], SIGNAL(valueChanged(int)), this, SLOT(sliderValueChanged()));
@@ -78,7 +68,6 @@ void DispositivoDMX::addDevice()
 
     groupBox->setLayout(groupBoxLayout);
     deviceLayout->addWidget(groupBox);
-    qDebug() << "Widget inserted";
 }
 
 void DispositivoDMX::on_nameInput_textChanged(const QString &arg1)

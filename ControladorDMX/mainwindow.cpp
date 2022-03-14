@@ -63,26 +63,17 @@ void MainWindow::addDevice()
     auto layout = qobject_cast<QHBoxLayout*>(ui->tabControl->layout());
     DispositivoDMX *_dispositivoDMX = new DispositivoDMX(ui->tabControl, layout, dmxControl);
     _dispositivoDMX->exec();
+
     if(_dispositivoDMX->DeviceValid == true)
     {
-        qDebug() << "append device";
         dispositivos.append(_dispositivoDMX);
         ui->listWidget->addItem(_dispositivoDMX->getDeviceName());
     }
-
-    qDebug() << "device count " << dispositivos.length();
 }
 
 void MainWindow::on_bRemover_clicked()
 {
-    // Quando usado com connect, sender() passa o endereço do slider a ser removido
-
-    // QSlider* slider = qobject_cast<QSlider*>(sender());
-    // delete slider;
-
-    ui->listWidget->selectedItems();
-
-    deleteDevice(0);
+    deleteDevice(ui->listWidget->currentRow());
 }
 
 void MainWindow::updateControlState(bool state)
@@ -109,12 +100,12 @@ DispositivoDMX *MainWindow::deviceAtIndex(int index)
 
 void MainWindow::deleteDevice(int index)
 {
-    if(index > dispositivos.length() || index == 0)
+    if(index > dispositivos.length() || index <= 0)
         return;
 
-    qDebug() << "delete device";
     DispositivoDMX *device = dispositivos[index];
     device->deleteDevices();
+    ui->listWidget->removeItemWidget(ui->listWidget->item(index));
+    delete ui->listWidget->item(index);
     delete device;
 }
-

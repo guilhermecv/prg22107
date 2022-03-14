@@ -32,6 +32,7 @@ private slots:
     void on_bRemover_clicked();
     void updateControlState(bool state);
 
+
 signals:
 
 private:
@@ -39,5 +40,7 @@ private:
     Controlador *dmxControl;
 
     QList<DispositivoDMX*> dispositivos;
+
+    int indexSelected;
 };
 #endif // MAINWINDOW_H

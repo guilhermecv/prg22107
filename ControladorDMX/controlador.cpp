@@ -20,6 +20,7 @@ Controlador::Controlador(QObject *parent)
     timer->setTimerType(Qt::PreciseTimer);
 
     connect(timer, &QTimer::timeout, this, &Controlador::timerAction);
+    connect(usb->serialPort(), &QSerialPort::errorOccurred, this, &Controlador::handleInterfaceError);
 
     clearBuffer();
 }
@@ -74,24 +75,36 @@ void Controlador::timerAction()
     }
 }
 
+void Controlador::handleInterfaceError()
+{
+    qDebug() << "handle Serial Error";
+
+    setState(false);
+    usbConnected = false;
+    emit interfaceError();
+
+    qDebug() << usb->serialPort()->errorString();
+
+    QMessageBox msgBox;
+    msgBox.critical(0, "Erro de interface USB", usb->serialPort()->errorString());
+}
+
 void Controlador::writeFrame()
 {
-    if(!usb->serialPort()->setBreakEnabled(false))  setState(false);
-
+    if(usbConnected)    usb->serialPort()->setBreakEnabled(false);
     QThread::usleep(88);
-    if(!usb->serialPort()->setBreakEnabled(true))   setState(false);
+    if(usbConnected)    usb->serialPort()->setBreakEnabled(true);
     QThread::usleep(8);
-    if(!usb->serialPort()->setBreakEnabled(false))  setState(false);
+    if(usbConnected)    usb->serialPort()->setBreakEnabled(false);
 
-    if(!usb->serialPort()->setRequestToSend(true))  setState(false);
+    if(usbConnected)    usb->serialPort()->setRequestToSend(true);
 
     dmxBuffer[0] = DMX_START_CODE;
-    usb->write((const char*)dmxBuffer, sizeof(dmxBuffer));
+    if(usbConnected)    usb->write((const char*)dmxBuffer, sizeof(dmxBuffer));
+    if(usbConnected)    usb->serialPort()->flush();
 
-    usb->serialPort()->flush();
-
-    usb->serialPort()->setRequestToSend(false);
-    usb->serialPort()->setBreakEnabled(false);
+    if(usbConnected)    usb->serialPort()->setRequestToSend(false);
+    if(usbConnected)    usb->serialPort()->setBreakEnabled(false);
 }
 
 void Controlador::clearBuffer()

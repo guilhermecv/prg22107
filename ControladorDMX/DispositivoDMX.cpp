@@ -83,7 +83,47 @@ void DispositivoDMX::on_nameInput_textChanged(const QString &arg1)
     }
 }
 
-void DispositivoDMX::on_comboBoxMode_highlighted(int index)
+
+void DispositivoDMX::on_buttonBox_accepted()
+{
+    checkConfig();
+
+    if(DeviceValid)
+    {
+        addDevice();
+        close();
+    }
+    else
+    {
+        QString message = "Verifique as informações abaixo\n\n";
+        QMessageBox msgBox;
+
+        if(DeviceName == "")        message += "Nome do dispositivo\n";
+        if(address == 0)            message += "Endereço do dispositivo\n";
+        if(mode == 0)               message += "Modo de operação \n";
+        if(deviceLayout == nullptr) message += "Ponteiro nulo para layout";
+
+        msgBox.warning(this, "Atenção", message);
+    }
+}
+
+void DispositivoDMX::sliderValueChanged()
+{
+    QSlider *m_slider = (QSlider*)sender();
+    int value = m_slider->value();
+
+    //qDebug() << "Buffer [" << selectedChannel << "] = [" << value << "]";
+
+    dmxControl->setChannel(selectedChannel, value);
+}
+
+void DispositivoDMX::channelUpdate(int ch)
+{
+    selectedChannel = address + ch;
+}
+
+
+void DispositivoDMX::on_comboBoxMode_currentIndexChanged(int index)
 {
     ui->deviceInfo->clear();
 
@@ -131,43 +171,5 @@ void DispositivoDMX::on_comboBoxMode_highlighted(int index)
     default:
         break;
     }
-}
-
-void DispositivoDMX::on_buttonBox_accepted()
-{
-    checkConfig();
-
-    if(DeviceValid)
-    {
-        addDevice();
-        close();
-    }
-    else
-    {
-        QString message = "Verifique as informações abaixo\n\n";
-        QMessageBox msgBox;
-
-        if(DeviceName == "")        message += "Nome do dispositivo\n";
-        if(address == 0)            message += "Endereço do dispositivo\n";
-        if(mode == 0)               message += "Modo de operação \n";
-        if(deviceLayout == nullptr) message += "Ponteiro nulo para layout";
-
-        msgBox.warning(this, "Atenção", message);
-    }
-}
-
-void DispositivoDMX::sliderValueChanged()
-{
-    QSlider *m_slider = (QSlider*)sender();
-    int value = m_slider->value();
-
-    //qDebug() << "Buffer [" << selectedChannel << "] = [" << value << "]";
-
-    dmxControl->setChannel(selectedChannel, value);
-}
-
-void DispositivoDMX::channelUpdate(int ch)
-{
-    selectedChannel = address + ch;
 }
 

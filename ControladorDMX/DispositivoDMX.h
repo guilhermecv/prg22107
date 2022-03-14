@@ -32,13 +32,13 @@ public:
 
 private slots:
     void on_nameInput_textChanged(const QString &arg1);
-    void on_comboBoxMode_highlighted(int index);
-    //void on_addressInput_valueChanged(int arg1);
 
     void on_buttonBox_accepted();
 
     void sliderValueChanged();
     void channelUpdate(int ch);
+
+    void on_comboBoxMode_currentIndexChanged(int index);
 
 private:
     Ui::DispositivoDMX *ui;

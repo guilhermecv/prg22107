@@ -30,6 +30,7 @@ public:
 
 signals:
     void stateChanged(bool state);
+    void interfaceError();
 
 public slots:
     void clearBuffer(void);
@@ -48,6 +49,7 @@ private:
     bool controlState;
 
     void timerAction();
+    void handleInterfaceError();
 
     unsigned char dmxBuffer[DMX_MAX_SIZE];
 };
